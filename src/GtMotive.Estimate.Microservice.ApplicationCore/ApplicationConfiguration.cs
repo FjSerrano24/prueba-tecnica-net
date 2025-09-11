@@ -19,6 +19,11 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore
         /// <returns>The modified instance.</returns>
         public static IServiceCollection AddUseCases(this IServiceCollection services)
         {
+            services.AddScoped<UseCases.CreateVehicle.CreateVehicleUseCase>();
+            services.AddScoped<UseCases.ListAvailableVehicles.ListAvailableVehiclesUseCase>();
+            services.AddScoped<UseCases.RentVehicle.RentVehicleUseCase>();
+            services.AddScoped<UseCases.ReturnVehicle.ReturnVehicleUseCase>();
+            
             return services;
         }
     }
