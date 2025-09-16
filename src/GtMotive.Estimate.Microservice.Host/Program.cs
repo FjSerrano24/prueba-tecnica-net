@@ -141,3 +141,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 await app.RunAsync();
+
+// Make Program class accessible for testing
+public partial class Program { }
