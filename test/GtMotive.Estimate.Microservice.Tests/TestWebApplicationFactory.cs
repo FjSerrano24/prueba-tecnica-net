@@ -2,7 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace GtMotive.Estimate.Microservice.Tests.Infrastructure;
+namespace GtMotive.Estimate.Microservice.Tests;
 
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -10,6 +10,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Hosting;
+using GtMotive;
+using GtMotive.Estimate;
+using GtMotive.Estimate.Microservice;
+using GtMotive.Estimate.Microservice.Tests;
+using GtMotive.Estimate.Microservice.Tests.Infrastructure;
+using GtMotive.Estimate.Microservice.Tests;
 
 /// <summary>
 /// Configurable factory for HTTP infrastructure tests.
@@ -65,7 +71,7 @@ internal class TestWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
             });
 
             // Allow each test to configure its specific services
-            this.configureServices?.Invoke(services);
+            configureServices?.Invoke(services);
         });
 
         // Disable strict service provider validation for tests

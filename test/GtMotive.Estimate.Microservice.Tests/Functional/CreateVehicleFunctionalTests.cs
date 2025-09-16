@@ -1,11 +1,5 @@
-// <copyright file="CreateVehicleFunctionalTests.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
-// </copyright>
-
 namespace GtMotive.Estimate.Microservice.Tests.Functional;
 
-using System.Net;
-using System.Net.Http.Json;
 using FluentAssertions;
 using GtMotive.Estimate.Microservice.Api.Models.Requests;
 using GtMotive.Estimate.Microservice.Api.Models.Responses;
@@ -16,6 +10,8 @@ using GtMotive.Estimate.Microservice.Domain.ValueObjects;
 using GtMotive.Estimate.Microservice.Tests.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
+using System.Net;
+using System.Net.Http.Json;
 
 /// <summary>
 /// Functional tests for CreateVehicle use case.

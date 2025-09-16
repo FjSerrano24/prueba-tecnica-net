@@ -6,6 +6,7 @@ namespace GtMotive.Estimate.Microservice.Tests.Infrastructure;
 
 using GtMotive.Estimate.Microservice.Domain.Interfaces;
 using GtMotive.Estimate.Microservice.Domain.ValueObjects;
+using Microsoft.Extensions.DependencyInjection;
 using Moq;
 
 /// <summary>

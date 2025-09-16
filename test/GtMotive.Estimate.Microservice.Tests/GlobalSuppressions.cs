@@ -2,6 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using GtMotive.Estimate.Microservice.Tests;
 using System.Diagnostics.CodeAnalysis;
 
 [assembly: SuppressMessage("Usage", "CA2234:Pass system uri objects instead of strings", Justification = "Test", Scope = "member", Target = "~M:GtMotive.Estimate.Microservice.Tests.Infrastructure.VehiclesControllerInfrastructureTests.CreateVehicleWithInvalidContentTypeShouldValidateRequest~System.Threading.Tasks.Task")]
