@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
-using Azure.Extensions.AspNetCore.Configuration.Secrets;
-using Azure.Identity;
-using Azure.Security.KeyVault.Secrets;
 using GtMotive.Estimate.Microservice.Api;
 using GtMotive.Estimate.Microservice.Host.Configuration;
 using GtMotive.Estimate.Microservice.Host.DependencyInjection;
@@ -27,12 +24,6 @@ var builder = WebApplication.CreateBuilder();
 if (!builder.Environment.IsDevelopment())
 {
     builder.Configuration.AddJsonFile("serilogsettings.json", optional: false, reloadOnChange: true);
-
-    var secretClient = new SecretClient(
-        new Uri($"https://{builder.Configuration.GetValue<string>("KeyVaultName")}.vault.azure.net/"),
-        new DefaultAzureCredential());
-
-    builder.Configuration.AddAzureKeyVault(secretClient, new KeyVaultSecretManager());
 }
 
 // Logging configuration for host bootstrapping.

@@ -30,11 +30,8 @@ namespace GtMotive.Estimate.Microservice.Api.Presenters
                 output.Status,
                 output.CreationDate);
 
-            ActionResult = new CreatedAtActionResult(
-                nameof(VehiclesController.CreateVehicle),
-                "VehiclesController",
-                new { vehicleId = output.VehicleId },
-                response);
+            // Return Created with the vehicle response
+            ActionResult = new CreatedResult(string.Empty, response);
         }
 
         /// <summary>

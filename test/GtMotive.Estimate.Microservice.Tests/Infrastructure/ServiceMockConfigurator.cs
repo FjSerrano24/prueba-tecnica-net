@@ -81,6 +81,25 @@ internal static class ServiceMockConfigurator
     }
 
     /// <summary>
+    /// Configures services for functional tests with custom mocked dependencies.
+    /// Allows full business logic execution with controlled infrastructure behavior.
+    /// </summary>
+    /// <param name="services">Service collection to configure.</param>
+    /// <param name="vehicleRepository">Mock vehicle repository instance.</param>
+    /// <param name="unitOfWork">Mock unit of work instance.</param>
+    public static void ConfigureForFunctionalTest(this IServiceCollection services, 
+        IVehicleRepository vehicleRepository, 
+        IUnitOfWork unitOfWork)
+    {
+        // Replace infrastructure dependencies with provided mocks
+        RemoveService<IVehicleRepository>(services);
+        RemoveService<IUnitOfWork>(services);
+        
+        services.AddSingleton(vehicleRepository);
+        services.AddSingleton(unitOfWork);
+    }
+
+    /// <summary>
     /// Removes a service from the collection if it exists.
     /// </summary>
     /// <typeparam name="T">Type of service to remove.</typeparam>

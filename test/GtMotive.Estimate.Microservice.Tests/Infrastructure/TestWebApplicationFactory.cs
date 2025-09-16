@@ -50,8 +50,8 @@ internal class TestWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
                 { "Logging:LogLevel:Microsoft", "Warning" },
                 { "Logging:LogLevel:Microsoft.AspNetCore", "Warning" },
                 { "PathBase", "/" },
-                { "AppSettings:JwtAuthority", "https://test-authority.com" },
-                { "AppSettings:KeyVaultName", "test-vault" },
+                { "AppSettings:JwtAuthority", "https://localhost:5001" },
+                { "AppSettings:KeyVaultName", "" },
             });
         });
 
