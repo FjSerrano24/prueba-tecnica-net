@@ -2,3 +2,9 @@
 
 dotnet_diagnostic.SA1600.severity = error
 dotnet_diagnostic.SA1601.severity = error
+
+# IDE0028: Simplify collection initialization
+dotnet_style_collection_initializer = false
+
+# IDE0028: Simplify collection initialization
+dotnet_diagnostic.IDE0028.severity = none

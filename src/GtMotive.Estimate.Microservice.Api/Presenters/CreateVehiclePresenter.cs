@@ -1,4 +1,4 @@
-using GtMotive.Estimate.Microservice.Api.Controllers;
+﻿using GtMotive.Estimate.Microservice.Api.Controllers;
 using GtMotive.Estimate.Microservice.Api.Models.Responses;
 using GtMotive.Estimate.Microservice.Api.UseCases;
 using GtMotive.Estimate.Microservice.ApplicationCore.UseCases.CreateVehicle;
@@ -43,7 +43,7 @@ namespace GtMotive.Estimate.Microservice.Api.Presenters
         /// <param name="message">Error message.</param>
         public void InvalidInput(string message)
         {
-            ActionResult = new BadRequestObjectResult(new { Error = message });
+            ActionResult = new BadRequestObjectResult(message);
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace GtMotive.Estimate.Microservice.Api.Presenters
         /// <param name="message">Error message.</param>
         public void ConflictHandle(string message)
         {
-            ActionResult = new ConflictObjectResult(new { Error = message });
+            ActionResult = new ConflictObjectResult(message);
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace GtMotive.Estimate.Microservice.Api.Presenters
         /// <param name="message">Error message.</param>
         public void NotFoundHandle(string message)
         {
-            ActionResult = new NotFoundObjectResult(new { Error = message });
+            ActionResult = new NotFoundObjectResult(message);
         }
     }
 }

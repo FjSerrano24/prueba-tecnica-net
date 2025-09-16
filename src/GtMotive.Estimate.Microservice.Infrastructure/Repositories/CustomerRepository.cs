@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using GtMotive.Estimate.Microservice.Domain.Entities;
 using GtMotive.Estimate.Microservice.Domain.Exceptions;
@@ -23,7 +23,7 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.Repositories
         public CustomerRepository(MongoService mongoService)
         {
             ArgumentNullException.ThrowIfNull(mongoService);
-            _customers = mongoService.GetCollection<Customer>("customers");
+            _customers = mongoService.MongoClient.GetDatabase("RentalDDBB").GetCollection<Customer>("customers");
         }
 
         /// <inheritdoc/>
@@ -32,16 +32,11 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.Repositories
             var filter = Builders<Customer>.Filter.Eq(c => c.Id, customerId);
             var customer = await _customers.Find(filter).FirstOrDefaultAsync();
 
-            if (customer == null)
-            {
-                throw new CustomerNotFoundException($"Customer with ID {customerId} not found.");
-            }
-
-            return customer;
+            return customer ?? throw new CustomerNotFoundException($"Customer with ID {customerId} not found.");
         }
 
         /// <inheritdoc/>
-        public async Task<Customer?> GetByEmailAsync(CustomerEmail email)
+        public async Task<Customer> GetByEmailAsync(CustomerEmail email)
         {
             var filter = Builders<Customer>.Filter.Eq(c => c.Email, email);
             return await _customers.Find(filter).FirstOrDefaultAsync();
@@ -71,4 +66,3 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.Repositories
         }
     }
 }
-

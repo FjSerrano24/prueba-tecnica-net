@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using GtMotive.Estimate.Microservice.Domain.ValueObjects;
 
 namespace GtMotive.Estimate.Microservice.Domain.Entities
@@ -26,6 +26,7 @@ namespace GtMotive.Estimate.Microservice.Domain.Entities
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="Customer"/> class.
         /// Private constructor for ORM.
         /// </summary>
         private Customer()
@@ -68,21 +69,5 @@ namespace GtMotive.Estimate.Microservice.Domain.Entities
             Email = email;
             UpdatedAt = DateTime.UtcNow;
         }
-
-        /// <inheritdoc/>
-        public override bool Equals(object? obj)
-        {
-            if (obj is not Customer other)
-                return false;
-
-            if (ReferenceEquals(this, other))
-                return true;
-
-            return Id.Equals(other.Id);
-        }
-
-        /// <inheritdoc/>
-        public override int GetHashCode() => Id.GetHashCode();
     }
 }
-

@@ -1,6 +1,5 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using GtMotive.Estimate.Microservice.Domain.Entities;
 using GtMotive.Estimate.Microservice.Domain.Enums;
@@ -27,7 +26,7 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.Repositories
         public RentalRepository(MongoService mongoService)
         {
             ArgumentNullException.ThrowIfNull(mongoService);
-            _rentals = mongoService.GetCollection<Rental>("rentals");
+            _rentals = mongoService.MongoClient.GetDatabase("RentalDDBB").GetCollection<Rental>("Rentals");
         }
 
         /// <inheritdoc/>
@@ -36,12 +35,7 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.Repositories
             var filter = Builders<Rental>.Filter.Eq(r => r.Id, rentalId);
             var rental = await _rentals.Find(filter).FirstOrDefaultAsync();
 
-            if (rental == null)
-            {
-                throw new RentalNotFoundException($"Rental with ID {rentalId} not found.");
-            }
-
-            return rental;
+            return rental ?? throw new RentalNotFoundException($"Rental with ID {rentalId} not found.");
         }
 
         /// <inheritdoc/>

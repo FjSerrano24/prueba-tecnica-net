@@ -1,4 +1,4 @@
-namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.ListAvailableVehicles
+﻿namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.ListAvailableVehicles
 {
     /// <summary>
     /// Output port for List Available Vehicles use case.
@@ -7,4 +7,3 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.ListAvailableV
     {
     }
 }
-

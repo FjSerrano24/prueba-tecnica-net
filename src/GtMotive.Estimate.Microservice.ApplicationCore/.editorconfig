@@ -2,3 +2,6 @@
 
 dotnet_diagnostic.SA1600.severity = error
 dotnet_diagnostic.SA1601.severity = error
+
+# Default severity for analyzer diagnostics with category 'Style'
+dotnet_analyzer_diagnostic.category-Style.severity = none

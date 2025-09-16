@@ -12,5 +12,17 @@
         /// </summary>
         /// <param name="response">The Output Port Message.</param>
         void StandardHandle(TUseCaseOutput response);
+
+        /// <summary>
+        /// Writes to the not found output.
+        /// </summary>
+        /// <param name="message">The not found response message.</param>
+        void NotFoundHandle(string message);
+
+        /// <summary>
+        /// Writes to the conflict output.
+        /// </summary>
+        /// <param name="message">The conflict response message.</param>
+        void ConflictHandle(string message);
     }
 }

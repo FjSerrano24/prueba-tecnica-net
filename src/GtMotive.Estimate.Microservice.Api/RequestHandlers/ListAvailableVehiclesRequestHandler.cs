@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 using GtMotive.Estimate.Microservice.Api.Models.Requests;
@@ -12,28 +12,21 @@ namespace GtMotive.Estimate.Microservice.Api.RequestHandlers
     /// MediatR Request Handler for List Available Vehicles operation.
     /// Follows the pattern described in the README.md.
     /// </summary>
-    public sealed class ListAvailableVehiclesRequestHandler : IRequestHandler<ListAvailableVehiclesRequest, IWebApiPresenter>
+    /// <remarks>
+    /// Initializes a new instance of the <see cref="ListAvailableVehiclesRequestHandler"/> class.
+    /// </remarks>
+    /// <param name="useCase">List available vehicles use case.</param>
+    /// <param name="presenter">List available vehicles presenter.</param>
+    public class ListAvailableVehiclesRequestHandler(ListAvailableVehiclesUseCase useCase,
+        IListAvailableVehiclesOutputPort presenter) : IRequestHandler<ListAvailableVehiclesRequest, IWebApiPresenter>
     {
-        private readonly ListAvailableVehiclesUseCase _useCase;
-        private readonly IListAvailableVehiclesOutputPort _presenter;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ListAvailableVehiclesRequestHandler"/> class.
-        /// </summary>
-        /// <param name="useCase">List available vehicles use case.</param>
-        /// <param name="presenter">List available vehicles presenter.</param>
-        public ListAvailableVehiclesRequestHandler(
-            ListAvailableVehiclesUseCase useCase, 
-            IListAvailableVehiclesOutputPort presenter)
-        {
-            _useCase = useCase ?? throw new ArgumentNullException(nameof(useCase));
-            _presenter = presenter ?? throw new ArgumentNullException(nameof(presenter));
-        }
+        private readonly ListAvailableVehiclesUseCase useCase = useCase ?? throw new ArgumentNullException(nameof(useCase));
+        private readonly IListAvailableVehiclesOutputPort presenter = presenter ?? throw new ArgumentNullException(nameof(presenter));
 
         /// <summary>
         /// Handles the List Available Vehicles request using MediatR pattern.
         /// Build the Input message then call the Use Case.
-        /// The handler does not build the Response, instead this responsibility 
+        /// The handler does not build the Response, instead this responsibility
         /// is delegated to the presenter object (as per README.md guidance).
         /// </summary>
         /// <param name="request">List available vehicles request.</param>
@@ -45,11 +38,10 @@ namespace GtMotive.Estimate.Microservice.Api.RequestHandlers
             var input = new ListAvailableVehiclesInput();
 
             // Call the Use Case (as recommended in README.md)
-            await _useCase.Execute(input);
+            await this.useCase.Execute(input).ConfigureAwait(true);
 
             // Return the presenter (as recommended in README.md)
-            return (IWebApiPresenter)_presenter;
+            return (IWebApiPresenter)this.presenter;
         }
     }
 }
-

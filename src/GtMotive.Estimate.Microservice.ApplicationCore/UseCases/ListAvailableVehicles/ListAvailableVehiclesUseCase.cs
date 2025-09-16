@@ -1,7 +1,6 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using GtMotive.Estimate.Microservice.ApplicationCore.UseCases;
 using GtMotive.Estimate.Microservice.Domain.Interfaces;
 
 namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.ListAvailableVehicles
@@ -52,7 +51,7 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.ListAvailableV
             }
             catch (Exception ex)
             {
-                _outputPort.NotFoundHandle(ex.Message);
+                _outputPort.ConflictHandle(ex.Message);
             }
         }
     }

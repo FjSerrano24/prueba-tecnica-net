@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using GtMotive.Estimate.Microservice.Domain.Entities;
 using GtMotive.Estimate.Microservice.Domain.ValueObjects;
 
@@ -19,4 +19,3 @@ namespace GtMotive.Estimate.Microservice.Domain.Factories
         Rental CreateRental(CustomerId customerId, VehicleId vehicleId, DateTime startDate);
     }
 }
-

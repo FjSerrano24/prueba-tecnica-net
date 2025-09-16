@@ -1,5 +1,4 @@
-using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using GtMotive.Estimate.Microservice.Api.Models.Requests;
 using MediatR;
@@ -19,7 +18,7 @@ namespace GtMotive.Estimate.Microservice.Api.Controllers
         /// <summary>
         /// Creates a new vehicle in the fleet.
         /// Follows MediatR pattern as recommended in README.md:
-        /// "Controllers receive Requests and send commands to perform some operation"
+        /// "Controllers receive Requests and send commands to perform some operation".
         /// </summary>
         /// <param name="mediator">MediatR mediator.</param>
         /// <param name="request">Create vehicle request.</param>
@@ -34,7 +33,7 @@ namespace GtMotive.Estimate.Microservice.Api.Controllers
         {
             // As per README.md: "var presenter = await _mediator.Send(request);"
             var presenter = await mediator.Send(request);
-            
+
             // As per README.md: "return presenter.ActionResult;"
             return presenter.ActionResult;
         }
@@ -42,7 +41,7 @@ namespace GtMotive.Estimate.Microservice.Api.Controllers
         /// <summary>
         /// Gets all available vehicles in the fleet.
         /// Follows MediatR pattern as recommended in README.md:
-        /// "Controllers receive Requests and send commands to perform some operation"
+        /// "Controllers receive Requests and send commands to perform some operation".
         /// </summary>
         /// <param name="mediator">MediatR mediator.</param>
         /// <returns>List of available vehicles.</returns>
@@ -53,10 +52,10 @@ namespace GtMotive.Estimate.Microservice.Api.Controllers
         {
             // Create request (as recommended in README.md)
             var request = new ListAvailableVehiclesRequest();
-            
+
             // As per README.md: "var presenter = await _mediator.Send(request);"
             var presenter = await mediator.Send(request);
-            
+
             // As per README.md: "return presenter.ActionResult;"
             return presenter.ActionResult;
         }

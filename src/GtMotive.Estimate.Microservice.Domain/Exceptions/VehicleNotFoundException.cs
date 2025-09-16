@@ -1,4 +1,4 @@
-namespace GtMotive.Estimate.Microservice.Domain.Exceptions
+﻿namespace GtMotive.Estimate.Microservice.Domain.Exceptions
 {
     /// <summary>
     /// Exception thrown when a vehicle is not found.
@@ -21,6 +21,15 @@ namespace GtMotive.Estimate.Microservice.Domain.Exceptions
             : base(message)
         {
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VehicleNotFoundException"/> class.
+        /// </summary>
+        /// <param name="message">The error message.</param>
+        /// <param name="innerException">The inner exception.</param>
+        public VehicleNotFoundException(string message, System.Exception innerException)
+            : base(message, innerException)
+        {
+        }
     }
 }
-

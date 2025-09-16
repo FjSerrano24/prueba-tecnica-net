@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using GtMotive.Estimate.Microservice.Domain;
 using GtMotive.Estimate.Microservice.Domain.Exceptions;
@@ -62,11 +62,9 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.ReturnVehicle
                 var output = new ReturnVehicleOutput(
                     rental.Id.ToGuid(),
                     rental.CustomerId.ToGuid(),
-                    vehicle.Id.ToGuid(),
-                    vehicle.LicensePlate.ToString(),
+                    vehicle.VehicleId.Value,
                     rental.StartDate,
                     rental.EndDate!.Value,
-                    rental.GetDurationInDays()!.Value,
                     rental.Status.ToString(),
                     rental.UpdatedAt!.Value);
 
@@ -86,9 +84,8 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.ReturnVehicle
             }
             catch (Exception ex)
             {
-                _outputPort.NotFoundHandle(ex.Message);
+                _outputPort.ConflictHandle(ex.Message);
             }
         }
     }
 }
-

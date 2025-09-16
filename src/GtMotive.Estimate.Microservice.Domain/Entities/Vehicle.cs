@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using GtMotive.Estimate.Microservice.Domain.Enums;
 using GtMotive.Estimate.Microservice.Domain.ValueObjects;
@@ -35,6 +35,7 @@ namespace GtMotive.Estimate.Microservice.Domain.Entities
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="Vehicle"/> class.
         /// Private constructor for ORM.
         /// </summary>
         private Vehicle()
@@ -108,20 +109,5 @@ namespace GtMotive.Estimate.Microservice.Domain.Entities
 
             Status = VehicleStatus.Maintenance;
         }
-
-        /// <inheritdoc/>
-        public override bool Equals(object? obj)
-        {
-            if (obj is not Vehicle other)
-                return false;
-
-            if (ReferenceEquals(this, other))
-                return true;
-
-            return VehicleId.Equals(other.VehicleId);
-        }
-
-        /// <inheritdoc/>
-        public override int GetHashCode() => VehicleId.GetHashCode();
     }
 }

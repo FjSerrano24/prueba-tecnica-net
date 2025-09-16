@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using GtMotive.Estimate.Microservice.Api.Models.Responses;
 using GtMotive.Estimate.Microservice.Api.UseCases;
 using GtMotive.Estimate.Microservice.ApplicationCore.UseCases.ListAvailableVehicles;
@@ -33,13 +33,14 @@ namespace GtMotive.Estimate.Microservice.Api.Presenters
             ActionResult = new OkObjectResult(response);
         }
 
-        /// <summary>
-        /// Handles not found errors.
-        /// </summary>
-        /// <param name="message">Error message.</param>
         public void NotFoundHandle(string message)
         {
-            ActionResult = new NotFoundObjectResult(new { Error = message });
+            ActionResult = new NotFoundObjectResult(message);
+        }
+
+        public void ConflictHandle(string message)
+        {
+            ActionResult = new ConflictObjectResult(message);
         }
     }
 }

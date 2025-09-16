@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using GtMotive.Estimate.Microservice.Api.Models.Requests;
@@ -19,7 +19,7 @@ namespace GtMotive.Estimate.Microservice.Api.Controllers
         /// <summary>
         /// Rents a vehicle to a customer.
         /// Follows MediatR pattern as recommended in README.md:
-        /// "Controllers receive Requests and send commands to perform some operation"
+        /// "Controllers receive Requests and send commands to perform some operation".
         /// </summary>
         /// <param name="mediator">MediatR mediator.</param>
         /// <param name="request">Rent vehicle request.</param>
@@ -35,7 +35,7 @@ namespace GtMotive.Estimate.Microservice.Api.Controllers
         {
             // As per README.md: "var presenter = await _mediator.Send(request);"
             var presenter = await mediator.Send(request);
-            
+
             // As per README.md: "return presenter.ActionResult;"
             return presenter.ActionResult;
         }
@@ -43,7 +43,7 @@ namespace GtMotive.Estimate.Microservice.Api.Controllers
         /// <summary>
         /// Returns a rented vehicle.
         /// Follows MediatR pattern as recommended in README.md:
-        /// "Controllers receive Requests and send commands to perform some operation"
+        /// "Controllers receive Requests and send commands to perform some operation".
         /// </summary>
         /// <param name="mediator">MediatR mediator.</param>
         /// <param name="rentalId">Rental identifier.</param>
@@ -60,10 +60,10 @@ namespace GtMotive.Estimate.Microservice.Api.Controllers
         {
             // Set the RentalId from route parameter to the request
             request.RentalId = rentalId;
-            
+
             // As per README.md: "var presenter = await _mediator.Send(request);"
             var presenter = await mediator.Send(request);
-            
+
             // As per README.md: "return presenter.ActionResult;"
             return presenter.ActionResult;
         }

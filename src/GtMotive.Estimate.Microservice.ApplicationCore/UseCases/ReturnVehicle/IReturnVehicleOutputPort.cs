@@ -1,9 +1,9 @@
-namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.ReturnVehicle
+﻿namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.ReturnVehicle
 {
     /// <summary>
     /// Output port for Return Vehicle use case.
     /// </summary>
-    public interface IReturnVehicleOutputPort : IOutputPortStandard<ReturnVehicleOutput>, IOutputPortNotFound
+    public interface IReturnVehicleOutputPort : IOutputPortStandard<ReturnVehicleOutput>
     {
         /// <summary>
         /// Handles invalid input scenarios.
@@ -12,4 +12,3 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.ReturnVehicle
         void InvalidInput(string message);
     }
 }
-

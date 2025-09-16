@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -10,12 +10,11 @@ namespace GtMotive.Estimate.Microservice.Domain.Collections
     /// <summary>
     /// First-Class Collection for Rentals.
     /// Follows the First-Class Collections pattern described in README.md:
-    /// "Each collection gets wrapped in its own class, so now behaviors related to the 
-    /// collection have a home. You may find that filters become a part of this new class."
+    /// "Each collection gets wrapped in its own class, so now behaviors related to the collection have a home. You may find that filters become a part of this new class.".
     /// </summary>
     public sealed class RentalCollection
     {
-        private readonly IList<Rental> _rentals;
+        private readonly List<Rental> _rentals;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RentalCollection"/> class.
@@ -35,6 +34,18 @@ namespace GtMotive.Estimate.Microservice.Domain.Collections
         }
 
         /// <summary>
+        /// Gets total count of rentals.
+        /// </summary>
+        /// <returns>Total count of rentals.</returns>
+        public int Count => _rentals.Count;
+
+        /// <summary>
+        /// Gets a value indicating whether checks if collection is empty.
+        /// </summary>
+        /// <returns>True if empty, false otherwise.</returns>
+        public bool IsEmpty => _rentals.Count == 0;
+
+        /// <summary>
         /// Adds a rental to the collection.
         /// </summary>
         /// <param name="rental">Rental to add.</param>
@@ -46,9 +57,12 @@ namespace GtMotive.Estimate.Microservice.Domain.Collections
         /// <param name="rentals">Rentals to add.</param>
         public void Add(IEnumerable<Rental> rentals)
         {
-            foreach (var rental in rentals)
+            if (rentals != null)
             {
-                Add(rental);
+                foreach (var rental in rentals)
+                {
+                    Add(rental);
+                }
             }
         }
 
@@ -56,7 +70,7 @@ namespace GtMotive.Estimate.Microservice.Domain.Collections
         /// Gets all rentals as read-only collection.
         /// </summary>
         /// <returns>Read-only collection of rentals.</returns>
-        public IReadOnlyCollection<Rental> GetRentals()
+        public IReadOnlyCollection<Rental> Rentals()
         {
             return new ReadOnlyCollection<Rental>(_rentals);
         }
@@ -113,7 +127,7 @@ namespace GtMotive.Estimate.Microservice.Domain.Collections
         {
             return _rentals
                 .Where(r => r.Status == RentalStatus.Completed)
-                .Sum(r => r.GetDurationInDays() ?? 0);
+                .Sum(r => r.DurationInDays() ?? 0);
         }
 
         /// <summary>
@@ -126,18 +140,6 @@ namespace GtMotive.Estimate.Microservice.Domain.Collections
         }
 
         /// <summary>
-        /// Gets total count of rentals.
-        /// </summary>
-        /// <returns>Total count of rentals.</returns>
-        public int Count => _rentals.Count;
-
-        /// <summary>
-        /// Checks if collection is empty.
-        /// </summary>
-        /// <returns>True if empty, false otherwise.</returns>
-        public bool IsEmpty => _rentals.Count == 0;
-
-        /// <summary>
         /// Checks if collection has any active rentals.
         /// Domain-specific query behavior.
         /// </summary>
@@ -148,4 +150,3 @@ namespace GtMotive.Estimate.Microservice.Domain.Collections
         }
     }
 }
-

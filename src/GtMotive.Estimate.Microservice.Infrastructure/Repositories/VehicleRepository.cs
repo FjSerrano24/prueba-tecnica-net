@@ -1,3 +1,4 @@
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using GtMotive.Estimate.Microservice.Domain.Entities;
@@ -26,7 +27,7 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.Repositories
         public VehicleRepository(MongoService mongoService)
         {
             ArgumentNullException.ThrowIfNull(mongoService);
-            _vehicles = mongoService.GetCollection<Vehicle>("vehicles");
+            _vehicles = mongoService.MongoClient.GetDatabase("RentalDDBB").GetCollection<Vehicle>("vehicles");
         }
 
         /// <summary>
@@ -40,12 +41,7 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.Repositories
             var filter = Builders<Vehicle>.Filter.Eq(v => v.VehicleId, vehicleId);
             var vehicle = await _vehicles.Find(filter).FirstOrDefaultAsync();
 
-            if (vehicle == null)
-            {
-                throw new VehicleNotFoundException($"Vehicle with ID {vehicleId} was not found.");
-            }
-
-            return vehicle;
+            return vehicle ?? throw new VehicleNotFoundException($"Vehicle with ID {vehicleId} was not found.");
         }
 
         /// <summary>

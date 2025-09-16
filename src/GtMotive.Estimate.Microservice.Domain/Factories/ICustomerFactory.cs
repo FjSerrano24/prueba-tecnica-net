@@ -1,4 +1,4 @@
-using GtMotive.Estimate.Microservice.Domain.Entities;
+﻿using GtMotive.Estimate.Microservice.Domain.Entities;
 using GtMotive.Estimate.Microservice.Domain.ValueObjects;
 
 namespace GtMotive.Estimate.Microservice.Domain.Factories
@@ -17,4 +17,3 @@ namespace GtMotive.Estimate.Microservice.Domain.Factories
         Customer CreateCustomer(CustomerName name, CustomerEmail email);
     }
 }
-

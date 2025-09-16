@@ -1,5 +1,4 @@
-using System;
-using GtMotive.Estimate.Microservice.ApplicationCore.UseCases;
+﻿using System;
 using GtMotive.Estimate.Microservice.Domain.ValueObjects;
 
 namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.RentVehicle

@@ -1,5 +1,4 @@
-using System;
-using GtMotive.Estimate.Microservice.ApplicationCore.UseCases;
+﻿using System;
 
 namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.ReturnVehicle
 {
@@ -24,20 +23,16 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.ReturnVehicle
             Guid rentalId,
             Guid customerId,
             Guid vehicleId,
-            string vehicleLicensePlate,
             DateTime startDate,
             DateTime endDate,
-            int durationInDays,
             string status,
             DateTime completedAt)
         {
             RentalId = rentalId;
             CustomerId = customerId;
             VehicleId = vehicleId;
-            VehicleLicensePlate = vehicleLicensePlate;
             StartDate = startDate;
             EndDate = endDate;
-            DurationInDays = durationInDays;
             Status = status;
             CompletedAt = completedAt;
         }
@@ -58,11 +53,6 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.ReturnVehicle
         public Guid VehicleId { get; }
 
         /// <summary>
-        /// Gets the vehicle license plate.
-        /// </summary>
-        public string VehicleLicensePlate { get; }
-
-        /// <summary>
         /// Gets the rental start date.
         /// </summary>
         public DateTime StartDate { get; }
@@ -71,11 +61,6 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.ReturnVehicle
         /// Gets the rental end date.
         /// </summary>
         public DateTime EndDate { get; }
-
-        /// <summary>
-        /// Gets the rental duration in days.
-        /// </summary>
-        public int DurationInDays { get; }
 
         /// <summary>
         /// Gets the rental status.
@@ -88,4 +73,3 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.ReturnVehicle
         public DateTime CompletedAt { get; }
     }
 }
-

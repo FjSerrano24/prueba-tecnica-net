@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using GtMotive.Estimate.Microservice.ApplicationCore.UseCases;
 
 namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.ListAvailableVehicles
@@ -23,4 +23,3 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.ListAvailableV
         public IReadOnlyList<VehicleModel> Vehicles { get; }
     }
 }
-

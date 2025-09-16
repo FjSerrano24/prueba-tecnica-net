@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using GtMotive.Estimate.Microservice.Domain.Interfaces;
 
 namespace GtMotive.Estimate.Microservice.Infrastructure
@@ -25,4 +25,3 @@ namespace GtMotive.Estimate.Microservice.Infrastructure
         }
     }
 }
-

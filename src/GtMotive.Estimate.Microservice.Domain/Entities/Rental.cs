@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using GtMotive.Estimate.Microservice.Domain.Enums;
 using GtMotive.Estimate.Microservice.Domain.ValueObjects;
 
@@ -31,6 +31,7 @@ namespace GtMotive.Estimate.Microservice.Domain.Entities
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="Rental"/> class.
         /// Private constructor for ORM.
         /// </summary>
         private Rental()
@@ -124,27 +125,9 @@ namespace GtMotive.Estimate.Microservice.Domain.Entities
         /// Gets the duration of the rental.
         /// </summary>
         /// <returns>Duration in days if completed, otherwise null.</returns>
-        public int? GetDurationInDays()
+        public int? DurationInDays()
         {
-            if (EndDate == null)
-                return null;
-
-            return (int)(EndDate.Value - StartDate).TotalDays;
+            return EndDate == null ? null : (int)(EndDate.Value - StartDate).TotalDays;
         }
-
-        /// <inheritdoc/>
-        public override bool Equals(object? obj)
-        {
-            if (obj is not Rental other)
-                return false;
-
-            if (ReferenceEquals(this, other))
-                return true;
-
-            return Id.Equals(other.Id);
-        }
-
-        /// <inheritdoc/>
-        public override int GetHashCode() => Id.GetHashCode();
     }
 }

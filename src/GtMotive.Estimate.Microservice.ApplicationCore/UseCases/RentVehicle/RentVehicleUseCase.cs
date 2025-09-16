@@ -1,8 +1,8 @@
-using System;
+﻿using System;
 using System.Threading.Tasks;
-using GtMotive.Estimate.Microservice.ApplicationCore.UseCases;
 using GtMotive.Estimate.Microservice.Domain;
 using GtMotive.Estimate.Microservice.Domain.Exceptions;
+using GtMotive.Estimate.Microservice.Domain.Factories;
 using GtMotive.Estimate.Microservice.Domain.Interfaces;
 using GtMotive.Estimate.Microservice.Domain.Services;
 using GtMotive.Estimate.Microservice.Domain.ValueObjects;
@@ -16,8 +16,7 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.RentVehicle
     public sealed class RentVehicleUseCase : IUseCase<RentVehicleInput>
     {
         private readonly ICustomerRepository _customerRepository;
-        private readonly IVehicleRepository _vehicleRepository;
-        private readonly IRentalRepository _rentalRepository;
+        private readonly ICustomerFactory _customerFactory;
         private readonly VehicleRentalService _vehicleRentalService;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IRentVehicleOutputPort _outputPort;
@@ -26,22 +25,19 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.RentVehicle
         /// Initializes a new instance of the <see cref="RentVehicleUseCase"/> class.
         /// </summary>
         /// <param name="customerRepository">Customer repository.</param>
-        /// <param name="vehicleRepository">Vehicle repository.</param>
-        /// <param name="rentalRepository">Rental repository.</param>
+        /// <param name="customerFactory">Customer factory.</param>
         /// <param name="vehicleRentalService">Vehicle rental service.</param>
         /// <param name="unitOfWork">Unit of work.</param>
         /// <param name="outputPort">Output port.</param>
         public RentVehicleUseCase(
             ICustomerRepository customerRepository,
-            IVehicleRepository vehicleRepository,
-            IRentalRepository rentalRepository,
+            ICustomerFactory customerFactory,
             VehicleRentalService vehicleRentalService,
             IUnitOfWork unitOfWork,
             IRentVehicleOutputPort outputPort)
         {
             _customerRepository = customerRepository ?? throw new ArgumentNullException(nameof(customerRepository));
-            _vehicleRepository = vehicleRepository ?? throw new ArgumentNullException(nameof(vehicleRepository));
-            _rentalRepository = rentalRepository ?? throw new ArgumentNullException(nameof(rentalRepository));
+            _customerFactory = customerFactory ?? throw new ArgumentNullException(nameof(customerFactory));
             _vehicleRentalService = vehicleRentalService ?? throw new ArgumentNullException(nameof(vehicleRentalService));
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             _outputPort = outputPort ?? throw new ArgumentNullException(nameof(outputPort));
@@ -73,7 +69,7 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.RentVehicle
                 catch (CustomerNotFoundException)
                 {
                     // Customer doesn't exist, create it
-                    var customer = _customerFactory.NewCustomer(customerId, customerName, customerEmail);
+                    var customer = _customerFactory.CreateCustomer(customerName, customerEmail);
                     await _customerRepository.AddAsync(customer);
                 }
 

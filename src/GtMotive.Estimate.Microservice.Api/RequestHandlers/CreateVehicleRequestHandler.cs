@@ -1,10 +1,10 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using GtMotive.Estimate.Microservice.Api.Models.Requests;
+﻿using GtMotive.Estimate.Microservice.Api.Models.Requests;
 using GtMotive.Estimate.Microservice.Api.UseCases;
 using GtMotive.Estimate.Microservice.ApplicationCore.UseCases.CreateVehicle;
 using MediatR;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace GtMotive.Estimate.Microservice.Api.RequestHandlers
 {
@@ -15,26 +15,24 @@ namespace GtMotive.Estimate.Microservice.Api.RequestHandlers
     /// </summary>
     public sealed class CreateVehicleRequestHandler : IRequestHandler<CreateVehicleRequest, IWebApiPresenter>
     {
-        private readonly CreateVehicleUseCase _useCase;
-        private readonly ICreateVehicleOutputPort _presenter;
+        private readonly CreateVehicleUseCase useCase;
+        private readonly ICreateVehicleOutputPort presenter;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CreateVehicleRequestHandler"/> class.
         /// </summary>
         /// <param name="useCase">Create vehicle use case.</param>
         /// <param name="presenter">Create vehicle presenter.</param>
-        public CreateVehicleRequestHandler(
-            CreateVehicleUseCase useCase, 
-            ICreateVehicleOutputPort presenter)
+        public CreateVehicleRequestHandler(CreateVehicleUseCase useCase, ICreateVehicleOutputPort presenter)
         {
-            _useCase = useCase ?? throw new ArgumentNullException(nameof(useCase));
-            _presenter = presenter ?? throw new ArgumentNullException(nameof(presenter));
+            this.useCase = useCase ?? throw new ArgumentNullException(nameof(useCase));
+            this.presenter = presenter ?? throw new ArgumentNullException(nameof(presenter));
         }
 
         /// <summary>
         /// Handles the Create Vehicle request using MediatR pattern.
         /// Build the Input message then call the Use Case.
-        /// The handler does not build the Response, instead this responsibility 
+        /// The handler does not build the Response, instead this responsibility
         /// is delegated to the presenter object (as per README.md guidance).
         /// </summary>
         /// <param name="request">Create vehicle request.</param>
@@ -42,16 +40,18 @@ namespace GtMotive.Estimate.Microservice.Api.RequestHandlers
         /// <returns>Web API presenter with the result.</returns>
         public async Task<IWebApiPresenter> Handle(CreateVehicleRequest request, CancellationToken cancellationToken)
         {
+            ArgumentNullException.ThrowIfNull(request);
+
             // Build the Input message (as recommended in README.md)
             var input = new CreateVehicleInput(
                 request.VehicleId,
                 request.Model);
 
             // Call the Use Case (as recommended in README.md)
-            await _useCase.Execute(input);
+            await this.useCase.Execute(input).ConfigureAwait(true);
 
             // Return the presenter (as recommended in README.md)
-            return (IWebApiPresenter)_presenter;
+            return (IWebApiPresenter)this.presenter;
         }
     }
 }

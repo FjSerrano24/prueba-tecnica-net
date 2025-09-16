@@ -12,9 +12,9 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.CreateVehicle
     /// </summary>
     public sealed class CreateVehicleUseCase : IUseCase<CreateVehicleInput>
     {
-        private readonly ICreateVehicleOutputPort _outputPort;
-        private readonly VehicleRentalService _vehicleRentalService;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly ICreateVehicleOutputPort outputPort;
+        private readonly VehicleRentalService vehicleRentalService;
+        private readonly IUnitOfWork unitOfWork;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CreateVehicleUseCase"/> class.
@@ -27,9 +27,9 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.CreateVehicle
             VehicleRentalService vehicleRentalService,
             IUnitOfWork unitOfWork)
         {
-            _outputPort = outputPort ?? throw new ArgumentNullException(nameof(outputPort));
-            _vehicleRentalService = vehicleRentalService ?? throw new ArgumentNullException(nameof(vehicleRentalService));
-            _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
+            this.outputPort = outputPort ?? throw new ArgumentNullException(nameof(outputPort));
+            this.vehicleRentalService = vehicleRentalService ?? throw new ArgumentNullException(nameof(vehicleRentalService));
+            this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         }
 
         /// <summary>
@@ -43,11 +43,10 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.CreateVehicle
             try
             {
                 // Create vehicle through domain service
-                var vehicle = await _vehicleRentalService.CreateVehicleAsync(
-                    input.VehicleId, input.Model);
+                var vehicle = await vehicleRentalService.CreateVehicleAsync(input.VehicleId, input.Model);
 
                 // Save changes
-                await _unitOfWork.Save();
+                await this.unitOfWork.Save();
 
                 // Build output
                 var output = new CreateVehicleOutput(
@@ -56,15 +55,15 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.CreateVehicle
                     vehicle.Status.ToString(),
                     vehicle.CreationDate);
 
-                _outputPort.StandardHandle(output);
+                this.outputPort.StandardHandle(output);
             }
             catch (DomainException ex)
             {
-                _outputPort.InvalidInput(ex.Message);
+                this.outputPort.InvalidInput(ex.Message);
             }
             catch (Exception ex)
             {
-                _outputPort.NotFoundHandle(ex.Message);
+                this.outputPort.NotFoundHandle(ex.Message);
             }
         }
     }

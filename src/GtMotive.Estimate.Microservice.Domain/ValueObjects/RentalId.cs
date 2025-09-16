@@ -1,11 +1,11 @@
-using System;
+﻿using System;
 
 namespace GtMotive.Estimate.Microservice.Domain.ValueObjects
 {
     /// <summary>
     /// Rental ID Value Object.
     /// </summary>
-    public readonly struct RentalId : IEquatable<RentalId>
+    public readonly struct RentalId
     {
         private readonly Guid _value;
 
@@ -37,25 +37,5 @@ namespace GtMotive.Estimate.Microservice.Domain.ValueObjects
 
         /// <inheritdoc/>
         public override string ToString() => _value.ToString();
-
-        /// <inheritdoc/>
-        public bool Equals(RentalId other) => _value.Equals(other._value);
-
-        /// <inheritdoc/>
-        public override bool Equals(object? obj) => obj is RentalId other && Equals(other);
-
-        /// <inheritdoc/>
-        public override int GetHashCode() => _value.GetHashCode();
-
-        /// <summary>
-        /// Equality operator.
-        /// </summary>
-        public static bool operator ==(RentalId left, RentalId right) => left.Equals(right);
-
-        /// <summary>
-        /// Inequality operator.
-        /// </summary>
-        public static bool operator !=(RentalId left, RentalId right) => !left.Equals(right);
     }
 }
-

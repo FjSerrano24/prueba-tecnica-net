@@ -1,5 +1,4 @@
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using GtMotive.Estimate.Microservice.Domain.Entities;
 using GtMotive.Estimate.Microservice.Domain.Enums;
@@ -47,14 +46,14 @@ namespace GtMotive.Estimate.Microservice.Domain.Interfaces
         /// </summary>
         /// <param name="customerId">Customer identifier.</param>
         /// <returns>The active rental if found, null otherwise.</returns>
-        Task<Rental?> GetActiveRentalByCustomerIdAsync(CustomerId customerId);
+        Task<Rental> GetActiveRentalByCustomerIdAsync(CustomerId customerId);
 
         /// <summary>
         /// Gets the active rental for a vehicle (if any).
         /// </summary>
         /// <param name="vehicleId">Vehicle identifier.</param>
         /// <returns>The active rental if found, null otherwise.</returns>
-        Task<Rental?> GetActiveRentalByVehicleIdAsync(VehicleId vehicleId);
+        Task<Rental> GetActiveRentalByVehicleIdAsync(VehicleId vehicleId);
 
         /// <summary>
         /// Adds a new rental to the repository.

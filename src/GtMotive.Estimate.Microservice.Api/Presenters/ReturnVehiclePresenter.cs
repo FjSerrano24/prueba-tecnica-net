@@ -1,4 +1,5 @@
-using GtMotive.Estimate.Microservice.Api.Models.Responses;
+﻿using GtMotive.Estimate.Microservice.Api.Models.Responses;
+using GtMotive.Estimate.Microservice.Api.UseCases;
 using GtMotive.Estimate.Microservice.ApplicationCore.UseCases.ReturnVehicle;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,7 +10,6 @@ namespace GtMotive.Estimate.Microservice.Api.Presenters
     /// </summary>
     public sealed class ReturnVehiclePresenter : IReturnVehicleOutputPort, IWebApiPresenter
     {
-        /// <inheritdoc/>
         public IActionResult ActionResult { get; private set; } = new NoContentResult();
 
         /// <inheritdoc/>
@@ -19,10 +19,8 @@ namespace GtMotive.Estimate.Microservice.Api.Presenters
                 output.RentalId,
                 output.CustomerId,
                 output.VehicleId,
-                output.VehicleLicensePlate,
                 output.StartDate,
                 output.EndDate,
-                output.DurationInDays,
                 output.Status,
                 output.CompletedAt);
 
@@ -32,14 +30,18 @@ namespace GtMotive.Estimate.Microservice.Api.Presenters
         /// <inheritdoc/>
         public void InvalidInput(string message)
         {
-            ActionResult = new BadRequestObjectResult(new { Error = message });
+            ActionResult = new BadRequestObjectResult(message);
         }
 
         /// <inheritdoc/>
         public void NotFoundHandle(string message)
         {
-            ActionResult = new NotFoundObjectResult(new { Error = message });
+            ActionResult = new NotFoundObjectResult(message);
+        }
+
+        public void ConflictHandle(string message)
+        {
+            ActionResult = new ConflictObjectResult(message);
         }
     }
 }
-

@@ -10,7 +10,5 @@ namespace GtMotive.Estimate.Microservice.Api.Models.Requests
     public sealed class ListAvailableVehiclesRequest : IRequest<IWebApiPresenter>
     {
         // This request doesn't require any parameters since we're listing all available vehicles
-        // Following the principle that requests should be simple DTOs
     }
 }
-

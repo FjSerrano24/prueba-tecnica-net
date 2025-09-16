@@ -1,4 +1,4 @@
-namespace GtMotive.Estimate.Microservice.Domain.Enums
+﻿namespace GtMotive.Estimate.Microservice.Domain.Enums
 {
     /// <summary>
     /// Vehicle Status enumeration.
@@ -21,4 +21,3 @@ namespace GtMotive.Estimate.Microservice.Domain.Enums
         Maintenance = 3
     }
 }
-

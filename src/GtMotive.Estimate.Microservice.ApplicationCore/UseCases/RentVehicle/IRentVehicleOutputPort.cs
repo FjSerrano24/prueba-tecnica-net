@@ -1,9 +1,9 @@
-namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.RentVehicle
+﻿namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.RentVehicle
 {
     /// <summary>
     /// Output port for Rent Vehicle use case.
     /// </summary>
-    public interface IRentVehicleOutputPort : IOutputPortStandard<RentVehicleOutput>, IOutputPortNotFound
+    public interface IRentVehicleOutputPort : IOutputPortStandard<RentVehicleOutput>
     {
         /// <summary>
         /// Handles invalid input scenarios.
@@ -18,4 +18,3 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.RentVehicle
         void BusinessRuleViolation(string message);
     }
 }
-

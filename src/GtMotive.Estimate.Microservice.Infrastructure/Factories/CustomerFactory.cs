@@ -1,4 +1,4 @@
-using GtMotive.Estimate.Microservice.Domain.Entities;
+﻿using GtMotive.Estimate.Microservice.Domain.Entities;
 using GtMotive.Estimate.Microservice.Domain.Factories;
 using GtMotive.Estimate.Microservice.Domain.ValueObjects;
 
@@ -17,4 +17,3 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.Factories
         }
     }
 }
-

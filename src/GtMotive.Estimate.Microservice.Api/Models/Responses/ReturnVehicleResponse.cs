@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace GtMotive.Estimate.Microservice.Api.Models.Responses
@@ -24,20 +24,16 @@ namespace GtMotive.Estimate.Microservice.Api.Models.Responses
             Guid rentalId,
             Guid customerId,
             Guid vehicleId,
-            string vehicleLicensePlate,
             DateTime startDate,
             DateTime endDate,
-            int durationInDays,
             string status,
             DateTime completedAt)
         {
             RentalId = rentalId;
             CustomerId = customerId;
             VehicleId = vehicleId;
-            VehicleLicensePlate = vehicleLicensePlate;
             StartDate = startDate;
             EndDate = endDate;
-            DurationInDays = durationInDays;
             Status = status;
             CompletedAt = completedAt;
         }
@@ -61,12 +57,6 @@ namespace GtMotive.Estimate.Microservice.Api.Models.Responses
         public Guid VehicleId { get; }
 
         /// <summary>
-        /// Gets the vehicle license plate.
-        /// </summary>
-        [Required]
-        public string VehicleLicensePlate { get; }
-
-        /// <summary>
         /// Gets the rental start date.
         /// </summary>
         [Required]
@@ -77,12 +67,6 @@ namespace GtMotive.Estimate.Microservice.Api.Models.Responses
         /// </summary>
         [Required]
         public DateTime EndDate { get; }
-
-        /// <summary>
-        /// Gets the rental duration in days.
-        /// </summary>
-        [Required]
-        public int DurationInDays { get; }
 
         /// <summary>
         /// Gets the rental status.
@@ -97,4 +81,3 @@ namespace GtMotive.Estimate.Microservice.Api.Models.Responses
         public DateTime CompletedAt { get; }
     }
 }
-

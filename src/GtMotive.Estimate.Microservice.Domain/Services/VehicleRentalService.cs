@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using GtMotive.Estimate.Microservice.Domain.Entities;
 using GtMotive.Estimate.Microservice.Domain.Exceptions;
@@ -52,7 +52,7 @@ namespace GtMotive.Estimate.Microservice.Domain.Services
 
             // Validate vehicle exists and is available
             var vehicle = await _vehicleRepository.GetByIdAsync(vehicleId);
-            
+
             if (!vehicle.IsAvailable())
             {
                 throw new DomainException($"Vehicle {vehicleId} is not available for rental. Current status: {vehicle.Status}");
@@ -73,7 +73,7 @@ namespace GtMotive.Estimate.Microservice.Domain.Services
 
             // Create rental
             var rentalId = RentalId.New();
-            var rental = new Rental(rentalId, customerId, vehicleId, startDate);
+            var rental = new Rental(rentalId, customer.Id, vehicleId, startDate);
 
             // Mark vehicle as rented
             vehicle.MarkAsRented();

@@ -1,11 +1,9 @@
-using System;
-
-namespace GtMotive.Estimate.Microservice.Domain.ValueObjects
+﻿namespace GtMotive.Estimate.Microservice.Domain.ValueObjects
 {
     /// <summary>
     /// Customer Name Value Object.
     /// </summary>
-    public readonly struct CustomerName : IEquatable<CustomerName>
+    public readonly struct CustomerName
     {
         private readonly string _value;
 
@@ -35,25 +33,5 @@ namespace GtMotive.Estimate.Microservice.Domain.ValueObjects
 
         /// <inheritdoc/>
         public override string ToString() => _value;
-
-        /// <inheritdoc/>
-        public bool Equals(CustomerName other) => _value.Equals(other._value, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override bool Equals(object? obj) => obj is CustomerName other && Equals(other);
-
-        /// <inheritdoc/>
-        public override int GetHashCode() => _value.GetHashCode(StringComparison.OrdinalIgnoreCase);
-
-        /// <summary>
-        /// Equality operator.
-        /// </summary>
-        public static bool operator ==(CustomerName left, CustomerName right) => left.Equals(right);
-
-        /// <summary>
-        /// Inequality operator.
-        /// </summary>
-        public static bool operator !=(CustomerName left, CustomerName right) => !left.Equals(right);
     }
 }
-

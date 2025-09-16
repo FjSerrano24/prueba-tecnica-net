@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using GtMotive.Estimate.Microservice.Domain.Entities;
@@ -8,15 +8,10 @@ namespace GtMotive.Estimate.Microservice.Domain.Collections
 {
     /// <summary>
     /// First-Class Collection for Vehicles.
-    /// Simplified for Vehicle with Id, CreationDate, and Model only.
-    /// Follows the First-Class Collections pattern described in README.md:
-    /// "Any class that contains a collection should contain no other member variables.
-    /// Each collection gets wrapped in its own class, so now behaviors related to the 
-    /// collection have a home."
     /// </summary>
     public sealed class VehicleCollection
     {
-        private readonly IList<Vehicle> _vehicles;
+        private readonly List<Vehicle> _vehicles;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="VehicleCollection"/> class.
@@ -36,6 +31,18 @@ namespace GtMotive.Estimate.Microservice.Domain.Collections
         }
 
         /// <summary>
+        /// Gets total count of vehicles.
+        /// </summary>
+        /// <returns>Total count of vehicles.</returns>
+        public int Count => _vehicles.Count;
+
+        /// <summary>
+        /// Gets a value indicating whether checks if collection is empty.
+        /// </summary>
+        /// <returns>True if empty, false otherwise.</returns>
+        public bool IsEmpty => _vehicles.Count == 0;
+
+        /// <summary>
         /// Adds a vehicle to the collection.
         /// </summary>
         /// <param name="vehicle">Vehicle to add.</param>
@@ -47,9 +54,12 @@ namespace GtMotive.Estimate.Microservice.Domain.Collections
         /// <param name="vehicles">Vehicles to add.</param>
         public void Add(IEnumerable<Vehicle> vehicles)
         {
-            foreach (var vehicle in vehicles)
+            if (vehicles != null)
             {
-                Add(vehicle);
+                foreach (var vehicle in vehicles)
+                {
+                    Add(vehicle);
+                }
             }
         }
 
@@ -57,9 +67,10 @@ namespace GtMotive.Estimate.Microservice.Domain.Collections
         /// Gets all vehicles as read-only collection.
         /// </summary>
         /// <returns>Read-only collection of vehicles.</returns>
-        public IReadOnlyCollection<Vehicle> GetVehicles()
+        public IReadOnlyCollection<Vehicle> Vehicles()
         {
-            return new ReadOnlyCollection<Vehicle>(_vehicles);
+            var transactions = new ReadOnlyCollection<Vehicle>(_vehicles);
+            return transactions;
         }
 
         /// <summary>
@@ -99,17 +110,5 @@ namespace GtMotive.Estimate.Microservice.Domain.Collections
         {
             return _vehicles.Count(v => v.Status == VehicleStatus.Available);
         }
-
-        /// <summary>
-        /// Gets total count of vehicles.
-        /// </summary>
-        /// <returns>Total count of vehicles.</returns>
-        public int Count => _vehicles.Count;
-
-        /// <summary>
-        /// Checks if collection is empty.
-        /// </summary>
-        /// <returns>True if empty, false otherwise.</returns>
-        public bool IsEmpty => _vehicles.Count == 0;
     }
 }

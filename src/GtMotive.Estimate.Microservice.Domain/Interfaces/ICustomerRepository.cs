@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using GtMotive.Estimate.Microservice.Domain.Entities;
 using GtMotive.Estimate.Microservice.Domain.ValueObjects;
 
@@ -22,7 +22,7 @@ namespace GtMotive.Estimate.Microservice.Domain.Interfaces
         /// </summary>
         /// <param name="email">Customer email.</param>
         /// <returns>The customer if found, null otherwise.</returns>
-        Task<Customer?> GetByEmailAsync(CustomerEmail email);
+        Task<Customer> GetByEmailAsync(CustomerEmail email);
 
         /// <summary>
         /// Adds a new customer to the repository.
@@ -46,4 +46,3 @@ namespace GtMotive.Estimate.Microservice.Domain.Interfaces
         Task<bool> ExistsByEmailAsync(CustomerEmail email);
     }
 }
-

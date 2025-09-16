@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 using GtMotive.Estimate.Microservice.Api.Models.Requests;
@@ -22,18 +22,16 @@ namespace GtMotive.Estimate.Microservice.Api.RequestHandlers
         /// </summary>
         /// <param name="useCase">Rent vehicle use case.</param>
         /// <param name="presenter">Rent vehicle presenter.</param>
-        public RentVehicleRequestHandler(
-            RentVehicleUseCase useCase, 
-            IRentVehicleOutputPort presenter)
+        public RentVehicleRequestHandler(RentVehicleUseCase useCase, IRentVehicleOutputPort presenter)
         {
-            _useCase = useCase ?? throw new ArgumentNullException(nameof(useCase));
-            _presenter = presenter ?? throw new ArgumentNullException(nameof(presenter));
+            this._useCase = useCase ?? throw new ArgumentNullException(nameof(useCase));
+            this._presenter = presenter ?? throw new ArgumentNullException(nameof(presenter));
         }
 
         /// <summary>
         /// Handles the Rent Vehicle request using MediatR pattern.
         /// Build the Input message then call the Use Case.
-        /// The handler does not build the Response, instead this responsibility 
+        /// The handler does not build the Response, instead this responsibility
         /// is delegated to the presenter object (as per README.md guidance).
         /// </summary>
         /// <param name="request">Rent vehicle request.</param>
@@ -57,4 +55,3 @@ namespace GtMotive.Estimate.Microservice.Api.RequestHandlers
         }
     }
 }
-
