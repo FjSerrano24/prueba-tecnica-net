@@ -16,7 +16,8 @@ namespace GtMotive.Estimate.Microservice.Domain.Entities
         /// </summary>
         /// <param name="vehicleId">Vehicle identifier.</param>
         /// <param name="model">Vehicle model.</param>
-        public Vehicle(VehicleId vehicleId, string model)
+        /// <param name="year">Vehicle year.</param>
+        public Vehicle(VehicleId vehicleId, string model, int year)
         {
             if (string.IsNullOrWhiteSpace(model))
             {
@@ -28,8 +29,11 @@ namespace GtMotive.Estimate.Microservice.Domain.Entities
                 throw new DomainException("Vehicle model cannot exceed 100 characters.");
             }
 
+            ValidateYear(year);
+
             VehicleId = vehicleId;
             Model = model.Trim();
+            Year = year;
             CreationDate = DateTime.UtcNow;
             Status = VehicleStatus.Available;
         }
@@ -57,6 +61,11 @@ namespace GtMotive.Estimate.Microservice.Domain.Entities
         /// </summary>
         [MaxLength(100)]
         public string Model { get; private set; } = string.Empty;
+
+        /// <summary>
+        /// Gets the vehicle year.
+        /// </summary>
+        public int Year { get; private set; }
 
         /// <summary>
         /// Gets the current status of the vehicle.
@@ -108,6 +117,33 @@ namespace GtMotive.Estimate.Microservice.Domain.Entities
             }
 
             Status = VehicleStatus.Maintenance;
+        }
+
+        /// <summary>
+        /// Validates the vehicle year.
+        /// Business rule: Vehicle cannot be older than 5 years from current date.
+        /// </summary>
+        /// <param name="year">The year to validate.</param>
+        /// <exception cref="DomainException">Thrown when year is invalid.</exception>
+        private static void ValidateYear(int year)
+        {
+            var currentYear = DateTime.UtcNow.Year;
+            var minimumYear = currentYear - 5;
+
+            if (year < 1900)
+            {
+                throw new DomainException("Vehicle year cannot be before 1900.");
+            }
+
+            if (year > currentYear + 1)
+            {
+                throw new DomainException($"Vehicle year cannot be more than one year in the future. Current year: {currentYear}");
+            }
+
+            if (year < minimumYear)
+            {
+                throw new DomainException($"Vehicle cannot be older than 5 years. Minimum allowed year: {minimumYear}, provided: {year}");
+            }
         }
     }
 }

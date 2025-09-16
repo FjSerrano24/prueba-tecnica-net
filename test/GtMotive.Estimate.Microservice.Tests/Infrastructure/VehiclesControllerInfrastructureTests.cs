@@ -137,4 +137,46 @@ public class VehiclesControllerInfrastructureTests
         // to simulate different scenarios without affecting other tests
         response.StatusCode.Should().NotBe(HttpStatusCode.NotFound, "the endpoint must handle conflict scenarios appropriately");
     }
+
+    /// <summary>
+    /// Test BusinessExceptionFilter handles DomainException correctly.
+    /// Verifies that vehicles older than 5 years are rejected with proper error response.
+    /// This test specifically tests the domain validation, not database serialization.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
+    [Fact]
+    public async Task CreateVehicleWithInvalidYear_ShouldReturnBadRequest_ViaBusinessExceptionFilter()
+    {
+        // Arrange - Use mocks to prevent MongoDB serialization issues
+        using var factory = new TestWebApplicationFactory<Program>(services =>
+        {
+            // Configure mocks to prevent reaching MongoDB where serialization error occurs
+            // This allows business logic validation to run, but prevents database serialization issues
+            services.ConfigureForHttpValidationOnly();
+        });
+        using var client = factory.CreateClient();
+        
+        var invalidRequest = new CreateVehicleRequest
+        {
+            VehicleId = new VehicleId(Guid.NewGuid()),
+            Model = "Toyota Camry Old",
+            Year = DateTime.UtcNow.Year - 6 // 6 years old (exceeds 5-year limit)
+        };
+
+        // Act
+        var response = await client.PostAsJsonAsync(BaseUrl, invalidRequest);
+
+        // Assert - Now the DomainException should be thrown and caught by BusinessExceptionFilter
+        var content = await response.Content.ReadAsStringAsync();
+        Console.WriteLine($"Response Status: {response.StatusCode}");
+        Console.WriteLine($"Response Content: {content}");
+
+        // Verify BusinessExceptionFilter converts DomainException to BadRequest
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest, "DomainException should be handled by BusinessExceptionFilter");
+        
+        // Verify domain validation message is returned
+        content.Should().Contain("Vehicle cannot be older than 5 years", "should contain domain validation message");
+        content.Should().Contain("Minimum allowed year", "should contain business rule explanation");
+        content.Should().NotBeNullOrEmpty("should have error content");
+    }
 }

@@ -6,9 +6,9 @@ namespace GtMotive.Estimate.Microservice.Api.Models.Responses
 {
     /// <summary>
     /// Vehicle response model.
-    /// Simplified for Vehicle with Id, CreationDate, and Model only.
+    /// Simplified for Vehicle with Id, CreationDate, Model, and Year.
     /// </summary>
-    public sealed class VehicleResponse(VehicleId VehicleId, string Model, string Status, DateTime CreationDate)
+    public sealed class VehicleResponse(VehicleId VehicleId, string Model, int Year, string Status, DateTime CreationDate)
     {
         /// <summary>
         /// Gets the vehicle identifier.
@@ -21,6 +21,12 @@ namespace GtMotive.Estimate.Microservice.Api.Models.Responses
         /// </summary>
         [Required]
         public string Model { get; } = Model;
+
+        /// <summary>
+        /// Gets the vehicle year.
+        /// </summary>
+        [Required]
+        public int Year { get; } = Year;
 
         /// <summary>
         /// Gets the vehicle status.

@@ -6,7 +6,7 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.CreateVehicle
 {
     /// <summary>
     /// Output for Create Vehicle use case.
-    /// Simplified for Vehicle with Id, CreationDate, and Model only.
+    /// Simplified for Vehicle with Id, CreationDate, Model, and Year.
     /// </summary>
     public sealed class CreateVehicleOutput : IUseCaseOutput
     {
@@ -15,16 +15,19 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.CreateVehicle
         /// </summary>
         /// <param name="vehicleId">Vehicle identifier.</param>
         /// <param name="model">Vehicle model.</param>
+        /// <param name="year">Vehicle year.</param>
         /// <param name="status">Vehicle status.</param>
         /// <param name="creationDate">Creation date.</param>
         public CreateVehicleOutput(
             VehicleId vehicleId,
             string model,
+            int year,
             string status,
             DateTime creationDate)
         {
             VehicleId = vehicleId;
             Model = model;
+            Year = year;
             Status = status;
             CreationDate = creationDate;
         }
@@ -38,6 +41,11 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.CreateVehicle
         /// Gets the vehicle model.
         /// </summary>
         public string Model { get; }
+
+        /// <summary>
+        /// Gets the vehicle year.
+        /// </summary>
+        public int Year { get; }
 
         /// <summary>
         /// Gets the status.

@@ -27,6 +27,7 @@ namespace GtMotive.Estimate.Microservice.Api.Presenters
             var response = new VehicleResponse(
                 output.VehicleId,
                 output.Model,
+                output.Year,
                 output.Status,
                 output.CreationDate);
 

@@ -5,7 +5,7 @@ namespace GtMotive.Estimate.Microservice.Domain.Factories
 {
     /// <summary>
     /// Vehicle Factory interface.
-    /// Simplified for Vehicle with Id, CreationDate, and Model only.
+    /// Simplified for Vehicle with Id, CreationDate, Model, and Year.
     /// </summary>
     public interface IVehicleFactory
     {
@@ -14,7 +14,8 @@ namespace GtMotive.Estimate.Microservice.Domain.Factories
         /// </summary>
         /// <param name="vehicleId">Vehicle identifier.</param>
         /// <param name="model">Vehicle model.</param>
+        /// <param name="year">Vehicle year.</param>
         /// <returns>New vehicle instance.</returns>
-        Vehicle CreateVehicle(VehicleId vehicleId, string model);
+        Vehicle CreateVehicle(VehicleId vehicleId, string model, int year);
     }
 }

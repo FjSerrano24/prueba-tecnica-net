@@ -15,10 +15,11 @@ namespace GtMotive.Estimate.Microservice.Infrastructure.Factories
         /// </summary>
         /// <param name="vehicleId">Vehicle identifier.</param>
         /// <param name="model">Vehicle model.</param>
+        /// <param name="year">Vehicle year.</param>
         /// <returns>New vehicle instance.</returns>
-        public Vehicle CreateVehicle(VehicleId vehicleId, string model)
+        public Vehicle CreateVehicle(VehicleId vehicleId, string model, int year)
         {
-            return new Vehicle(vehicleId, model);
+            return new Vehicle(vehicleId, model, year);
         }
     }
 }

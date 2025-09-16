@@ -43,7 +43,7 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.CreateVehicle
             try
             {
                 // Create vehicle through domain service
-                var vehicle = await vehicleRentalService.CreateVehicleAsync(input.VehicleId, input.Model);
+                var vehicle = await vehicleRentalService.CreateVehicleAsync(input.VehicleId, input.Model, input.Year);
 
                 // Save changes
                 await this.unitOfWork.Save();
@@ -52,6 +52,7 @@ namespace GtMotive.Estimate.Microservice.ApplicationCore.UseCases.CreateVehicle
                 var output = new CreateVehicleOutput(
                     vehicle.VehicleId,
                     vehicle.Model,
+                    vehicle.Year,
                     vehicle.Status.ToString(),
                     vehicle.CreationDate);
 

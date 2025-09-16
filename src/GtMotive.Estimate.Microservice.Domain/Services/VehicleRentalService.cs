@@ -121,9 +121,10 @@ namespace GtMotive.Estimate.Microservice.Domain.Services
         /// </summary>
         /// <param name="vehicleId">Vehicle identifier.</param>
         /// <param name="model">Vehicle model.</param>
+        /// <param name="year">Vehicle year.</param>
         /// <returns>Task representing the validation operation.</returns>
         /// <exception cref="DomainException">Thrown when validation fails.</exception>
-        public async Task ValidateVehicleForFleetAsync(VehicleId vehicleId, string model)
+        public async Task ValidateVehicleForFleetAsync(VehicleId vehicleId, string model, int year)
         {
             // Validate vehicle ID uniqueness
             var existsById = await _vehicleRepository.ExistsByIdAsync(vehicleId);
@@ -142,6 +143,9 @@ namespace GtMotive.Estimate.Microservice.Domain.Services
             {
                 throw new DomainException("Vehicle model cannot exceed 100 characters.");
             }
+
+            // Validate year - Business Rule: Vehicle cannot be older than 5 years
+            ValidateVehicleYear(year);
         }
 
         /// <summary>
@@ -150,20 +154,38 @@ namespace GtMotive.Estimate.Microservice.Domain.Services
         /// </summary>
         /// <param name="vehicleId">Vehicle identifier.</param>
         /// <param name="model">Vehicle model.</param>
+        /// <param name="year">Vehicle year.</param>
         /// <returns>The created vehicle.</returns>
         /// <exception cref="DomainException">Thrown when validation fails.</exception>
-        public async Task<Vehicle> CreateVehicleAsync(VehicleId vehicleId, string model)
+        public async Task<Vehicle> CreateVehicleAsync(VehicleId vehicleId, string model, int year)
         {
             // Validate vehicle for fleet
-            await ValidateVehicleForFleetAsync(vehicleId, model);
+            await ValidateVehicleForFleetAsync(vehicleId, model, year);
 
             // Create vehicle
-            var vehicle = new Vehicle(vehicleId, model);
+            var vehicle = new Vehicle(vehicleId, model, year);
 
             // Add to repository
             await _vehicleRepository.AddAsync(vehicle);
 
             return vehicle;
+        }
+
+        /// <summary>
+        /// Validates the vehicle year according to business rules.
+        /// Business rule: Vehicle cannot be older than 5 years from current date.
+        /// </summary>
+        /// <param name="year">Vehicle year to validate.</param>
+        /// <exception cref="DomainException">Thrown when year validation fails.</exception>
+        private static void ValidateVehicleYear(int year)
+        {
+            var currentYear = DateTime.UtcNow.Year;
+            var minimumYear = currentYear - 5;
+
+            if (year < minimumYear)
+            {
+                throw new DomainException($"Vehicle cannot be older than 5 years. Minimum allowed year: {minimumYear}, provided: {year}");
+            }
         }
     }
 }

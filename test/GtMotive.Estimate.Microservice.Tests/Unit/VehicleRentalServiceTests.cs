@@ -49,7 +49,7 @@ namespace GtMotive.Estimate.Microservice.Tests.Unit
                 .ReturnsAsync(false);
 
             // Act - Execute the method under test
-            var act = async () => await _service.ValidateVehicleForFleetAsync(vehicleId, model);
+            var act = async () => await _service.ValidateVehicleForFleetAsync(vehicleId, model, 2023);
 
             // Assert - Verify that no exception is thrown
             await act.Should().NotThrowAsync();
@@ -74,7 +74,7 @@ namespace GtMotive.Estimate.Microservice.Tests.Unit
                 .ReturnsAsync(true);
 
             // Act - Execute the method under test
-            var act = async () => await _service.ValidateVehicleForFleetAsync(vehicleId, model);
+            var act = async () => await _service.ValidateVehicleForFleetAsync(vehicleId, model, 2023);
 
             // Assert - Verify that DomainException is thrown with correct message
             var exception = await act.Should().ThrowAsync<DomainException>();
@@ -100,7 +100,7 @@ namespace GtMotive.Estimate.Microservice.Tests.Unit
                 .ReturnsAsync(false);
 
             // Act - Execute the method under test
-            var act = async () => await _service.ValidateVehicleForFleetAsync(vehicleId, model!);
+            var act = async () => await _service.ValidateVehicleForFleetAsync(vehicleId, model!, 2023);
 
             // Assert - Verify that DomainException is thrown with correct message
             var exception = await act.Should().ThrowAsync<DomainException>();
@@ -126,7 +126,7 @@ namespace GtMotive.Estimate.Microservice.Tests.Unit
                 .ReturnsAsync(false);
 
             // Act - Execute the method under test
-            var act = async () => await _service.ValidateVehicleForFleetAsync(vehicleId, model);
+            var act = async () => await _service.ValidateVehicleForFleetAsync(vehicleId, model, 2023);
 
             // Assert - Verify that DomainException is thrown with correct message
             var exception = await act.Should().ThrowAsync<DomainException>();
@@ -152,7 +152,7 @@ namespace GtMotive.Estimate.Microservice.Tests.Unit
                 .ReturnsAsync(false);
 
             // Act - Execute the method under test
-            var act = async () => await _service.ValidateVehicleForFleetAsync(vehicleId, model);
+            var act = async () => await _service.ValidateVehicleForFleetAsync(vehicleId, model, 2023);
 
             // Assert - Verify that DomainException is thrown with correct message
             var exception = await act.Should().ThrowAsync<DomainException>();
@@ -178,7 +178,7 @@ namespace GtMotive.Estimate.Microservice.Tests.Unit
                 .ReturnsAsync(false);
 
             // Act - Execute the method under test
-            var act = async () => await _service.ValidateVehicleForFleetAsync(vehicleId, model);
+            var act = async () => await _service.ValidateVehicleForFleetAsync(vehicleId, model, 2023);
 
             // Assert - Verify that DomainException is thrown with correct message
             var exception = await act.Should().ThrowAsync<DomainException>();
@@ -204,7 +204,7 @@ namespace GtMotive.Estimate.Microservice.Tests.Unit
                 .ReturnsAsync(false);
 
             // Act - Execute the method under test
-            var act = async () => await _service.ValidateVehicleForFleetAsync(vehicleId, model);
+            var act = async () => await _service.ValidateVehicleForFleetAsync(vehicleId, model, 2023);
 
             // Assert - Verify that no exception is thrown
             await act.Should().NotThrowAsync();

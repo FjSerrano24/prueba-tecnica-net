@@ -45,7 +45,8 @@ namespace GtMotive.Estimate.Microservice.Api.RequestHandlers
             // Build the Input message (as recommended in README.md)
             var input = new CreateVehicleInput(
                 request.VehicleId,
-                request.Model);
+                request.Model,
+                request.Year);
 
             // Call the Use Case (as recommended in README.md)
             await this.useCase.Execute(input).ConfigureAwait(true);

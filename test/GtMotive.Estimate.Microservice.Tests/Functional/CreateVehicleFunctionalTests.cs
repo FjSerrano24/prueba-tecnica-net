@@ -60,7 +60,8 @@ public class CreateVehicleFunctionalTests
         var request = new CreateVehicleRequest
         {
             VehicleId = vehicleId,
-            Model = "Toyota Camry 2024"
+            Model = "Toyota Camry 2024",
+            Year = 2024
         };
 
         // Act - Execute the complete business flow
