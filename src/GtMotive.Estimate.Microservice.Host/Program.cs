@@ -126,12 +126,28 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseSwaggerInApplication(pathBase, builder.Configuration);
+
+// Redirección automática a Swagger UI cuando se accede a la raíz (solo en desarrollo)
+if (app.Environment.IsDevelopment())
+{
+    app.Use(async (context, next) =>
+    {
+        if (context.Request.Path == "/")
+        {
+            var swaggerPath = pathBase.IsDefault ? "/swagger" : $"{pathBase.CurrentWithoutTrailingSlash}/swagger";
+            context.Response.Redirect(swaggerPath);
+            return;
+        }
+        await next().ConfigureAwait(false);
+    });
+}
+
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 
-await app.RunAsync();
+await app.RunAsync().ConfigureAwait(false);
 
 // Make Program class accessible for testing
 public partial class Program { }
